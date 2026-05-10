@@ -2,7 +2,7 @@
   "version": "2026.05.10.3",
   "libraryScriptId": "10l8bKyKWnEqChNBKpuiB9_RS0vreJ0amKh5eynUYyVUOXu-1dl9BAZGz",
   "libraryVersion": "3",
-  "releaseNotes": "Adds default GitHub manifest URL, inline update card, and one-click YTTools Library dependency update via Apps Script API.",
+  "releaseNotes": "Test release: bumps system version to verify update detection and one-click YTTools Library update flow.",
   "requiredClientIdentifier": "YTTools",
   "updatedAt": "2026-05-10",
   "instructions": [
