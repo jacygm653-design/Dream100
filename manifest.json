@@ -1,5 +1,5 @@
 {
-  "version": "2026.05.10.2",
+  "version": "2026.05.10.3",
   "libraryScriptId": "10l8bKyKWnEqChNBKpuiB9_RS0vreJ0amKh5eynUYyVUOXu-1dl9BAZGz",
   "libraryVersion": "2",
   "releaseNotes": "Adds default GitHub manifest URL, inline update card, and one-click YTTools Library dependency update via Apps Script API.",
