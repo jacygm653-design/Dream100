@@ -1,8 +1,8 @@
 {
-  "version": "2026.05.10.1",
+  "version": "2026.05.10.2",
   "libraryScriptId": "10l8bKyKWnEqChNBKpuiB9_RS0vreJ0amKh5eynUYyVUOXu-1dl9BAZGz",
-  "libraryVersion": "1",
-  "releaseNotes": "Initial Library release with split modules and system update center.",
+  "libraryVersion": "2",
+  "releaseNotes": "Adds default GitHub manifest URL, inline update card, and one-click YTTools Library dependency update via Apps Script API.",
   "requiredClientIdentifier": "YTTools",
   "updatedAt": "2026-05-10",
   "instructions": [

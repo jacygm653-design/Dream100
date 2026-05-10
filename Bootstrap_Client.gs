@@ -468,6 +468,10 @@ function getSystemUpdateStatus() {
   return YTTools.getSystemUpdateStatus();
 }
 
+function applySystemLibraryUpdate() {
+  return YTTools.applySystemLibraryUpdate();
+}
+
 function showSystemUpdateCenter() {
   return YTTools.showSystemUpdateCenter();
 }

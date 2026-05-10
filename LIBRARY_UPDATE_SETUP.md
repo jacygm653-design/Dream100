@@ -40,7 +40,12 @@ This keeps cloned spreadsheets small and lets you release new versions from one 
    - Set identifier exactly to `YTTools`.
 4. Add one local script file named `Bootstrap_Client.gs`.
 5. Copy the whole content of this folder's `Bootstrap_Client.gs` into that local file.
-6. Save, run `onOpen`, authorize, then reload the spreadsheet.
+6. Enable `Show appsscript.json` in Project Settings.
+7. Open `appsscript.json` in the cloned project and make sure it contains the scopes from `appsscript.client.example.json`, especially:
+   - `https://www.googleapis.com/auth/script.projects`
+   - `https://www.googleapis.com/auth/script.external_request`
+8. In Google Cloud for the cloned project, enable the Apps Script API if the one-click update button returns an Apps Script API error.
+9. Save, run `onOpen`, authorize, then reload the spreadsheet.
 
 ## Update manifest
 
@@ -56,15 +61,14 @@ Required fields:
 In any cloned spreadsheet:
 
 1. Open menu `YouTube Tools`.
-2. Choose `Kiểm tra cập nhật hệ thống`.
-3. Paste the manifest URL and save.
-4. Click `Kiểm tra cập nhật`.
-5. If an update is available, change the `YTTools` Library version in the Apps Script left sidebar.
-6. Save and reload the spreadsheet.
+2. Open the admin panel.
+3. Click `Cập nhật hệ thống`.
+4. If an update is available, click `Cap nhat ngay`.
+5. Reload the spreadsheet after the update succeeds.
 
 ## Important limits
 
-Apps Script Libraries are versioned dependencies. A script cannot safely and universally switch its own Library version without using the Apps Script API and additional OAuth scopes.
-This setup therefore uses a safe update center that checks the manifest, logs update checks, and tells the user exactly which Library version to select.
+Apps Script Libraries are versioned dependencies. The one-click update button uses the Apps Script API to update only the `YTTools` dependency in the cloned project's `appsscript.json`.
+If Apps Script API permissions are not enabled, the update center still shows the target Library version so users can switch it manually.
 
 Do not store user sheet data, API keys, or history in the Library project. Those stay in each cloned spreadsheet.

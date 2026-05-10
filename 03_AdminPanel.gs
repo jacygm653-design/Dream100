@@ -142,6 +142,7 @@ function getInlineView_(viewName) {
   if (viewName === 'fetch') return _ivFetch_();
   if (viewName === 'ai') return _ivAI_();
   if (viewName === 'apiKey') return _ivApiKey_();
+  if (viewName === 'systemUpdate') return getInlineSystemUpdateView_();
   if (viewName.indexOf('range:') === 0) return _ivRange_(viewName.substring(6));
   if (viewName.indexOf('single:') === 0) return _ivSingleRow_(viewName.substring(7));
   if (viewName.indexOf('direct:') === 0) return _ivDirect_(viewName.substring(7));
@@ -1379,6 +1380,7 @@ function openAdminPanel() {
   ];
   const ACTIONS = [
     { cat:'home', icon:'📘', title:'Trung tâm hướng dẫn', desc:'Tóm tắt 9 mục quan trọng: Tổng quan, API key, Quota, Video, Kênh, Tìm kiếm, Subtitle, OAuth, AI, Health.', fn:'showSystemBrandInfo', color:'#4f46e5', inline:'guide' },
+    { cat:'home', icon:'🔄', title:'Cập nhật hệ thống', desc:'Kiểm tra manifest GitHub và cập nhật Library YTTools lên version mới ngay trong bảng điều khiển.', fn:'showSystemUpdateCenter', color:'#2563eb', inline:'systemUpdate' },
     { cat:'home', icon:'🔑', title:'Cài đặt API Keys', desc:'Quản lý tập trung toàn bộ API key: YouTube Data, OAuth, Supadata, YT-Transcript.io, 9router. Điền và lưu trực tiếp vào sheet API KEY.', fn:'showSystemBrandInfo', color:'#0f9d58', inline:'apiKey' },
     { cat:'home', icon:'🩺', title:'Kiểm tra sức khỏe hệ thống', desc:'Chẩn đoán toàn bộ API key, OAuth, sheet, quota — Health Score 0–100.', fn:'showSystemHealthCheck', color:'#10b981', inline:'health' },
     { cat:'home', icon:'📊', title:'Quota Dashboard', desc:'Vòng tròn % quota, 5 stat-chip, ETA reset PT, auto-refresh 10s.', fn:'showYouTubeQuotaUsage', color:'#7c3aed', inline:'quota' },
