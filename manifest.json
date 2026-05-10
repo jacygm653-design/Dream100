@@ -1,15 +1,15 @@
-{
-  "version": "2026.05.10.3",
-  "libraryScriptId": "10l8bKyKWnEqChNBKpuiB9_RS0vreJ0amKh5eynUYyVUOXu-1dl9BAZGz",
-  "libraryVersion": "3",
-  "releaseNotes": "Test release: bumps system version to verify update detection and one-click YTTools Library update flow.",
-  "requiredClientIdentifier": "YTTools",
-  "updatedAt": "2026-05-10",
-  "instructions": [
-    "Open the cloned spreadsheet Apps Script project.",
-    "Go to Libraries.",
-    "Select the YTTools library.",
-    "Choose the libraryVersion shown in this manifest.",
-    "Save and reload the spreadsheet."
-  ]
+﻿{
+    "version":  "2026.05.10.4",
+    "libraryScriptId":  "10l8bKyKWnEqChNBKpuiB9_RS0vreJ0amKh5eynUYyVUOXu-1dl9BAZGz",
+    "libraryVersion":  "4",
+    "releaseNotes":  "Separates API key cache by spreadsheet so every cloned sheet uses its own API KEY tab values. Adds template key cleanup helper.",
+    "requiredClientIdentifier":  "YTTools",
+    "updatedAt":  "2026-05-10",
+    "instructions":  [
+                         "Open the cloned spreadsheet Apps Script project.",
+                         "Go to Libraries.",
+                         "Select the YTTools library.",
+                         "Choose the libraryVersion shown in this manifest.",
+                         "Save and reload the spreadsheet."
+                     ]
 }

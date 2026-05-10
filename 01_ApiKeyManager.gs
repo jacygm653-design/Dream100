@@ -1,10 +1,20 @@
 ﻿// =========================================================================
 // HÀM LẤY CẤU HÌNH TỪ SHEET "API KEY"
 // =========================================================================
+function getApiConfigCacheKey_() {
+  let spreadsheetId = "no_active_spreadsheet";
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    if (ss && ss.getId) spreadsheetId = ss.getId();
+  } catch (e) {}
+  return API_CONFIG_CACHE_KEY + "_" + spreadsheetId;
+}
+
 function getApiConfigMap_() {
   const cache = getSafeCache_();
+  const cacheKey = getApiConfigCacheKey_();
   try {
-    const cached = cache.get(API_CONFIG_CACHE_KEY);
+    const cached = cache.get(cacheKey);
     if (cached) return JSON.parse(cached);
   } catch (e) {}
 
@@ -29,12 +39,12 @@ function getApiConfigMap_() {
     ASSEMBLYAI_AUDIO_URL_TEMPLATE: vals[11],
     YT_TRANSCRIPT_API_BRIDGE_URL: vals[12]
   };
-  try { cache.put(API_CONFIG_CACHE_KEY, JSON.stringify(config), 300); } catch (e) {}
+  try { cache.put(cacheKey, JSON.stringify(config), 300); } catch (e) {}
   return config;
 }
 
 function clearApiConfigCache_() {
-  try { getSafeCache_().remove(API_CONFIG_CACHE_KEY); } catch (e) {}
+  try { getSafeCache_().remove(getApiConfigCacheKey_()); } catch (e) {}
 }
 
 function getApiConfig(type) {
@@ -205,6 +215,41 @@ function saveApiKeyConfig(params) {
       ? "Đã lưu: " + saved.join(", ") + (skipped.length ? " | Đã xóa: " + skipped.join(", ") : "")
       : "Không có thay đổi nào được lưu.";
     return { success: true, message: msg };
+  } catch (e) {
+    return { success: false, message: e.message };
+  }
+}
+
+function clearApiKeysForTemplate() {
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName(SHEET_API_KEY);
+    if (!sheet) {
+      sheet = ss.insertSheet(SHEET_API_KEY);
+      _setupApiKeySheet_(sheet);
+    }
+    const labels = [
+      ["YouTube Data API Key"],
+      ["Google OAuth Client ID"],
+      ["Google OAuth Client Secret"],
+      ["Supadata API Key"],
+      ["YouTube-Transcript.io Token"],
+      ["9router API Key / Bearer Token"],
+      ["RapidAPI YouTube Transcript Key"],
+      ["RapidAPI YouTube Transcript Host"],
+      ["RapidAPI YouTube Transcript Endpoint"],
+      ["Apify API Token"],
+      ["AssemblyAI API Key"],
+      ["AssemblyAI Audio URL Template"],
+      ["youtube-transcript-api Bridge URL"]
+    ];
+    sheet.getRange("A2:A14").setValues(labels);
+    sheet.getRange("B2:B14").clearContent();
+    clearApiConfigCache_();
+    return {
+      success: true,
+      message: 'Da xoa toan bo API key trong sheet "' + SHEET_API_KEY + '". File nay san sang lam template de moi nguoi dung tu nhap key rieng.'
+    };
   } catch (e) {
     return { success: false, message: e.message };
   }

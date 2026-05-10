@@ -80,6 +80,10 @@ function saveApiKeyConfig(params) {
   return YTTools.saveApiKeyConfig(params);
 }
 
+function clearApiKeysForTemplate() {
+  return YTTools.clearApiKeysForTemplate();
+}
+
 function onOpen() {
   return YTTools.onOpen();
 }
