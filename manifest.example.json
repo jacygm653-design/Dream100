@@ -1,0 +1,15 @@
+{
+  "version": "2026.05.10.1",
+  "libraryScriptId": "AKfycbyokT0KEnmYvY2lImZo7bag6-Pd9fqrxoD2TyZqnC3XbvJhffDAMbdSRfbyD-B48ljRcw",
+  "libraryVersion": "1",
+  "releaseNotes": "Initial Library release with split modules and system update center.",
+  "requiredClientIdentifier": "YTTools",
+  "updatedAt": "2026-05-10",
+  "instructions": [
+    "Open the cloned spreadsheet Apps Script project.",
+    "Go to Libraries.",
+    "Select the YTTools library.",
+    "Choose the libraryVersion shown in this manifest.",
+    "Save and reload the spreadsheet."
+  ]
+}
