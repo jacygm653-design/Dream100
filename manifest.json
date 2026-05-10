@@ -1,8 +1,8 @@
 ﻿{
-    "version":  "2026.05.10.4",
+    "version":  "2026.05.10.5",
     "libraryScriptId":  "10l8bKyKWnEqChNBKpuiB9_RS0vreJ0amKh5eynUYyVUOXu-1dl9BAZGz",
-    "libraryVersion":  "4",
-    "releaseNotes":  "Separates API key cache by spreadsheet so every cloned sheet uses its own API KEY tab values. Adds template key cleanup helper.",
+    "libraryVersion":  "5",
+    "releaseNotes":  "Moves API key management back into the dashboard with a stable inline view that saves to each cloned spreadsheet's own API KEY sheet.",
     "requiredClientIdentifier":  "YTTools",
     "updatedAt":  "2026-05-10",
     "instructions":  [

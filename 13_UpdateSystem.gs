@@ -2,7 +2,7 @@
 // SYSTEM UPDATE CENTER
 // =========================================================================
 
-const SYSTEM_VERSION = "2026.05.10.4";
+const SYSTEM_VERSION = "2026.05.10.5";
 const SYSTEM_DEFAULT_MANIFEST_URL = "https://raw.githubusercontent.com/jacygm653-design/Dream100/main/manifest.json";
 const SYSTEM_UPDATE_MANIFEST_URL_PROP = "SYSTEM_UPDATE_MANIFEST_URL";
 const SYSTEM_UPDATE_LOG_SHEET = "SYSTEM UPDATE LOG";

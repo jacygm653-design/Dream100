@@ -141,7 +141,7 @@ function getInlineView_(viewName) {
   if (viewName === 'oauth') return _ivOAuth_();
   if (viewName === 'fetch') return _ivFetch_();
   if (viewName === 'ai') return _ivAI_();
-  if (viewName === 'apiKey') return _ivApiKey_();
+  if (viewName === 'apiKey') return _ivApiKeyStable_();
   if (viewName === 'systemUpdate') return getInlineSystemUpdateView_();
   if (viewName.indexOf('range:') === 0) return _ivRange_(viewName.substring(6));
   if (viewName.indexOf('single:') === 0) return _ivSingleRow_(viewName.substring(7));
@@ -285,6 +285,124 @@ function _ivSharedStyles_() {
       function ivStopProgressPoll(timer){
         if (timer) clearInterval(timer);
       }
+    </script>
+  `;
+}
+
+function _ivApiKeyStable_() {
+  const cfg = getApiKeyConfig();
+  const keys = cfg.success ? cfg.keys : {};
+  const fields = [
+    { id: 'youtubeDataKey', cell: 'B2', label: 'YouTube Data API Key', required: true, desc: 'Dung cho Video, Kenh, Tim kiem va cap nhat metadata.' },
+    { id: 'clientId', cell: 'B3', label: 'Google OAuth Client ID', required: false, desc: 'Dung cho YouTube Analytics OAuth.' },
+    { id: 'clientSecret', cell: 'B4', label: 'Google OAuth Client Secret', required: false, desc: 'Dung cho YouTube Analytics OAuth.' },
+    { id: 'supadataKey', cell: 'B5', label: 'Supadata API Key', required: false, desc: 'Nguon transcript uu tien.' },
+    { id: 'ytTranscriptToken', cell: 'B6', label: 'YouTube-Transcript.io Token', required: false, desc: 'Nguon transcript du phong.' },
+    { id: 'nineRouterKey', cell: 'B7', label: '9router API Key / Bearer Token', required: false, desc: 'Dung cho AI phan tich Sheet.' },
+    { id: 'rapidApiTranscriptKey', cell: 'B8', label: 'RapidAPI YouTube Transcript Key', required: false, desc: 'Key RapidAPI youtube-transcript1.' },
+    { id: 'rapidApiTranscriptHost', cell: 'B9', label: 'RapidAPI YouTube Transcript Host', required: false, desc: 'X-RapidAPI-Host lay tu RapidAPI.' },
+    { id: 'rapidApiTranscriptEndpoint', cell: 'B10', label: 'RapidAPI YouTube Transcript Endpoint', required: false, desc: 'Endpoint co the dung {VIDEO_ID} hoac {URL}.' },
+    { id: 'apifyToken', cell: 'B11', label: 'Apify API Token', required: false, desc: 'Token Apify actor youtube-transcript-extractor.' },
+    { id: 'assemblyAiApiKey', cell: 'B12', label: 'AssemblyAI API Key', required: false, desc: 'API key AssemblyAI.' },
+    { id: 'assemblyAiAudioUrlTemplate', cell: 'B13', label: 'AssemblyAI Audio URL Template', required: false, desc: 'URL media truc tiep/template cho AssemblyAI.' },
+    { id: 'ytTranscriptApiBridgeUrl', cell: 'B14', label: 'youtube-transcript-api Bridge URL', required: false, desc: 'URL web service tu host cho python package.' }
+  ];
+  const fieldHtml = fields.map(function(f) {
+    const value = String(keys[f.id] || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/"/g, '&quot;');
+    return ''
+      + '<div class="akStableField">'
+      + '<div class="akStableTop">'
+      + '<span class="akStableCell">' + f.cell + '</span>'
+      + '<span class="akStableLabel">' + f.label + '</span>'
+      + (f.required ? '<span class="akStableReq">BAT BUOC</span>' : '')
+      + '</div>'
+      + '<input class="akStableInput" id="ak_' + f.id + '" type="password" value="' + value + '" autocomplete="off" placeholder="Nhap gia tri cho ' + f.cell + '">'
+      + '<div class="akStableDesc">' + f.desc + '</div>'
+      + '</div>';
+  }).join('');
+  return `
+    <style>
+      .akStable{font-family:Arial,sans-serif;color:#0f172a;display:grid;gap:12px}
+      .akStableHead{background:linear-gradient(135deg,#eff6ff,#e0f2fe);border:1px solid #bfdbfe;border-radius:12px;padding:14px}
+      .akStableTitle{font-size:18px;font-weight:900;margin-bottom:4px;color:#0f172a}
+      .akStableSub{font-size:12.5px;line-height:1.5;color:#475569;font-weight:600}
+      .akStableWarn{background:#fefce8;border:1px solid #fde68a;color:#713f12;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.5;font-weight:700}
+      .akStableGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+      .akStableField{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:11px;box-shadow:0 3px 10px -8px rgba(15,23,42,.22)}
+      .akStableTop{display:flex;align-items:center;gap:8px;margin-bottom:7px;min-width:0}
+      .akStableCell{flex:0 0 auto;background:#0f172a;color:#fff;border-radius:6px;padding:2px 7px;font-size:10px;font-weight:900;letter-spacing:.03em}
+      .akStableLabel{font-size:12px;font-weight:900;line-height:1.25;min-width:0;flex:1}
+      .akStableReq{font-size:9.5px;font-weight:900;color:#991b1b;background:#fee2e2;border-radius:999px;padding:2px 7px;flex:0 0 auto}
+      .akStableInput{width:100%;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:8px;padding:9px 10px;font-size:13px;outline:none;background:#fff}
+      .akStableInput:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.16)}
+      .akStableDesc{font-size:11px;color:#64748b;margin-top:5px;line-height:1.4}
+      .akStableActions{display:flex;gap:8px;align-items:center;position:sticky;bottom:0;background:#f8fafc;border-top:1px solid #e2e8f0;padding:10px 0;margin-top:4px}
+      .akStableBtn{border:0;border-radius:9px;padding:10px 15px;background:#16a34a;color:#fff;font-weight:900;cursor:pointer}
+      .akStableGhost{border:1px solid #cbd5e1;border-radius:9px;padding:10px 15px;background:#fff;color:#334155;font-weight:900;cursor:pointer}
+      .akStableMsg{display:none;border-radius:9px;padding:10px 12px;font-size:12.5px;font-weight:800;line-height:1.45}
+      @media(max-width:760px){.akStableGrid{grid-template-columns:1fr}}
+    </style>
+    <div class="akStable">
+      <div class="akStableHead">
+        <div class="akStableTitle">Cai dat API Keys</div>
+        <div class="akStableSub">Tat ca key duoc luu vao sheet <b>API KEY</b> cua file Google Sheet dang mo. Library chi dung code xu ly, khong luu key dung chung.</div>
+      </div>
+      <div class="akStableWarn">Khi phat hanh file mau, hay de trong API KEY!B2:B14. Moi nguoi dung nhan ban file se tu nhap key rieng trong ban sao cua ho.</div>
+      <div id="akStableMsg" class="akStableMsg"></div>
+      <div class="akStableGrid">${fieldHtml}</div>
+      <div class="akStableActions">
+        <button class="akStableBtn" onclick="akStableSave()">Luu vao API KEY</button>
+        <button class="akStableGhost" onclick="akStableToggle()">Hien/An key</button>
+        <button class="akStableGhost" onclick="akStableReload()">Tai lai tu Sheet</button>
+      </div>
+    </div>
+    <script>
+      (function(){
+        var fieldIds = ${JSON.stringify(fields.map(function(f) { return f.id; }))};
+        var shown = false;
+        function msg(text, ok){
+          var el = document.getElementById('akStableMsg');
+          el.style.display = 'block';
+          el.style.background = ok ? '#dcfce7' : '#fee2e2';
+          el.style.color = ok ? '#166534' : '#991b1b';
+          el.textContent = text;
+        }
+        window.akStableToggle = function(){
+          shown = !shown;
+          fieldIds.forEach(function(id){
+            var input = document.getElementById('ak_' + id);
+            if (input) input.type = shown ? 'text' : 'password';
+          });
+        };
+        window.akStableSave = function(){
+          var params = {};
+          fieldIds.forEach(function(id){
+            var input = document.getElementById('ak_' + id);
+            params[id] = input ? input.value : '';
+          });
+          google.script.run
+            .withSuccessHandler(function(res){ msg((res && res.message) || 'Da luu.', !!(res && res.success)); })
+            .withFailureHandler(function(err){ msg('Loi: ' + ((err && err.message) || err), false); })
+            .saveApiKeyConfig(params);
+        };
+        window.akStableReload = function(){
+          google.script.run
+            .withSuccessHandler(function(res){
+              if (!res || !res.success) { msg((res && res.message) || 'Khong tai duoc cau hinh.', false); return; }
+              var keys = res.keys || {};
+              fieldIds.forEach(function(id){
+                var input = document.getElementById('ak_' + id);
+                if (input) input.value = keys[id] || '';
+              });
+              msg('Da tai lai key tu sheet API KEY cua file hien tai.', true);
+            })
+            .withFailureHandler(function(err){ msg('Loi: ' + ((err && err.message) || err), false); })
+            .getApiKeyConfig();
+        };
+      })();
     </script>
   `;
 }
